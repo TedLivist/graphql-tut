@@ -11,7 +11,19 @@ query {
 }
 */
 exports.Category = {
-  products: ({id: categoryId}, args, {products}) => {
-    return products.filter((product) => product.categoryId === categoryId)
+  products: ({id: categoryId}, {filter}, {products}) => {
+
+    let categoryProducts = products.filter((product) => product.categoryId === categoryId)
+    let filteredCategoryProducts = categoryProducts
+
+    if (filter) {
+      if(filter.onSale === true) {
+        filteredCategoryProducts = filteredCategoryProducts.filter((filteredCategoryProduct) => filteredCategoryProduct.onSale)
+      } else {
+        filteredCategoryProducts = filteredCategoryProducts.filter((filteredCategoryProduct) => filteredCategoryProduct.onSale === false)
+      }
+    }
+    
+    return filteredCategoryProducts
   }
 }
