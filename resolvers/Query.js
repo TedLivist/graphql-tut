@@ -1,5 +1,3 @@
-const { categories, products } = require("../db")
-
 exports.Query = {
   hello: () => {
     return null
@@ -7,13 +5,13 @@ exports.Query = {
   products: () => {
     return products
   },
-  product: (parent, args, context) => {
-    return products.find((product) => product.id == args.id)
+  product: (parent, {id}, {products}) => {
+    return products.find((product) => product.id == id)
   },
 
   categories: () => categories,
 
-  category: (parent, args, context) => {
-    return categories.find((category) => category.id == args.id )
+  category: (parent, {id}, {categories}) => {
+    return categories.find((category) => category.id == id )
   }
 }
