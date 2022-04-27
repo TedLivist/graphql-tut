@@ -2,8 +2,15 @@ exports.Query = {
   hello: () => {
     return null
   },
-  products: () => {
-    return products
+  products: (parent, {filter}, {products}) => {
+    let filteredProducts = products
+    if (filter) {
+      if(filter.onSale === true) {
+        filteredProducts = filteredProducts.filter((filteredProduct) => filteredProduct.onSale)
+      }
+    }
+    
+    return filteredProducts
   },
   product: (parent, {id}, {products}) => {
     return products.find((product) => product.id == id)
