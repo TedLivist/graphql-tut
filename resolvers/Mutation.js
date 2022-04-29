@@ -13,5 +13,16 @@ exports.Mutation = {
 
     return newCategory
 
+  },
+
+  addProduct: (parent, {input}, {products}) => {
+    const {name, description, price, quantity, image, onSale} = input
+    const newProduct = {
+      id: uuid(),
+      name, description, price, quantity, image, onSale
+    }
+
+    products.push(newProduct)
+    return newProduct
   }
 }
