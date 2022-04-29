@@ -16,13 +16,24 @@ exports.Mutation = {
   },
 
   addProduct: (parent, {input}, {products}) => {
-    const {name, description, price, quantity, image, onSale} = input
+    const {name, description, price, quantity, image, onSale, categoryId} = input
     const newProduct = {
       id: uuid(),
-      name, description, price, quantity, image, onSale
+      name, description, price, quantity, image, onSale, categoryId
     }
 
     products.push(newProduct)
     return newProduct
+  },
+
+  addReview: (parent, {input}, {reviews}) => {
+    const {title, comment, date, rating, productId} = input
+    const newReview = {
+      id: uuid(),
+      title, comment, date, rating, productId
+    }
+
+    reviews.push(newReview)
+    return newReview
   }
 }
