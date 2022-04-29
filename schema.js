@@ -59,7 +59,7 @@ exports.typeDefs = gql`
     onSale: Boolean!
     price: Float!
     image: String!
-    categoryId: String!
+    categoryId: ID!
   }
 
   input AddReviewInput {
@@ -67,6 +67,6 @@ exports.typeDefs = gql`
     title: String!
     comment: String!
     rating: Int!
-    productId: String!
+    productId: ID!
   }
 `
