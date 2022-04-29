@@ -33,7 +33,7 @@ exports.Query = {
     return products.find((product) => product.id == id)
   },
 
-  categories: () => categories,
+  categories: (parent, args, {categories}) => categories,
 
   category: (parent, {id}, {categories}) => {
     return categories.find((category) => category.id == id )

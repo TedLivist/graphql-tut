@@ -4,6 +4,7 @@ const { Product } = require('./resolvers/Product')
 const { Query } = require('./resolvers/Query')
 const { typeDefs } = require('./schema')
 const {categories, products, reviews} = require('./db')
+const { Mutation } = require('./resolvers/Mutation')
 
 const server = new ApolloServer({
   typeDefs,
@@ -11,6 +12,7 @@ const server = new ApolloServer({
     Query,
     Category,
     Product,
+    Mutation
   },
   context: {
     categories,
