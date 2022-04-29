@@ -11,18 +11,48 @@ query {
 }
 */
 exports.Category = {
-  products: ({id: categoryId}, {filter}, {products}) => {
+  products: ({id: categoryId}, {filter}, {products, reviews}) => {
 
     let categoryProducts = products.filter((product) => product.categoryId === categoryId)
     let filteredCategoryProducts = categoryProducts
 
     if (filter) {
-      if(filter.onSale === true) {
+      const { onSale, avgRating } = filter
+
+      if(onSale) {
         filteredCategoryProducts = filteredCategoryProducts.filter((filteredCategoryProduct) => filteredCategoryProduct.onSale)
-      } else {
-        filteredCategoryProducts = filteredCategoryProducts.filter((filteredCategoryProduct) => filteredCategoryProduct.onSale === false)
+      }
+
+      if ([1, 2, 3, 4, 5].includes(avgRating)) {
+        filteredCategoryProducts = filteredCategoryProducts.filter((product) => {
+          let sumRating = 0
+          let numberOfReviews = 0
+          reviews.forEach((review) => {
+            if (review.productId === product.id) {
+              sumRating += review.rating
+              numberOfReviews++
+            }
+          })
+          const avgProductRating = sumRating/numberOfReviews
+          return avgProductRating >= avgRating
+        })
       }
     }
+
+    // if ([1, 2, 3, 4, 5].includes(avgRating)) {
+    //   filteredProducts = filteredProducts.filter((product) => {
+    //     let sumRating = 0
+    //     let numberOfReviews = 0
+    //     reviews.forEach((review) => {
+    //       if (review.productId === product.id) {
+    //         sumRating += review.rating
+    //         numberOfReviews++
+    //       }
+    //     })
+    //     const avgProductRating = sumRating/numberOfReviews
+    //     return avgProductRating >= avgRating
+    //   })
+    // }
     
     return filteredCategoryProducts
   }
